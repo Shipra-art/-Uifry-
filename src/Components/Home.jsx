@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import About from "../Components/About";
 import Blog from "../Components/Blog";
@@ -16,6 +16,9 @@ import Fourth from "../assets/images/Fourth.png";
 import Five from "../assets/images/Five.png";
 
 export default function HeroSection() {
+  const floatImgRef = useRef(null);
+
+  // TYPEWRITER EFFECT
   useEffect(() => {
     const text = "Launch a software business website today with us!";
     const el = document.getElementById("typeWriterText");
@@ -24,6 +27,8 @@ export default function HeroSection() {
     let deleting = false;
 
     function typeLoop() {
+      if (!el) return;
+
       const speed = deleting ? 40 : 100;
 
       if (!deleting) {
@@ -37,10 +42,11 @@ export default function HeroSection() {
       }
       setTimeout(typeLoop, speed);
     }
+
     typeLoop();
   }, []);
 
-  // LOGO SLIDE ANIMATION
+  // LOGO SLIDE
   useEffect(() => {
     gsap.to(".logo-slide", {
       x: 80,
@@ -51,9 +57,11 @@ export default function HeroSection() {
     });
   }, []);
 
-  // FLOATING IMAGES ANIMATION
+  // FLOATING IMAGE (FIXED)
   useEffect(() => {
-    gsap.to(".float-img", {
+    if (!floatImgRef.current) return;
+
+    gsap.to(floatImgRef.current, {
       y: -15,
       duration: 2.5,
       repeat: -1,
@@ -68,7 +76,7 @@ export default function HeroSection() {
       {/* HERO SECTION */}
       <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
 
-        {/* LEFT TEXT SECTION */}
+        {/* LEFT */}
         <div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
             <span id="typeWriterText" className="inline-block"></span>
@@ -76,23 +84,43 @@ export default function HeroSection() {
           </h1>
 
           <div className="flex items-center gap-4 mt-6">
-            <button className="bg-pink-300 px-6 py-3 rounded-lg">Contact Now</button>
-            <button className="border border-pink-300 px-6 py-3 rounded-lg text-xl">&gt;</button>
+            <button className="bg-pink-300 px-6 py-3 rounded-lg">
+              Contact Now
+            </button>
+            <button className="border border-pink-300 px-6 py-3 rounded-lg text-xl">
+              &gt;
+            </button>
             <p className="text-xl font-medium">Book a Demo Today</p>
           </div>
 
           <p className="mt-4">⭐ Rated 4.9 out of 1200 reviews</p>
-          
         </div>
-        <div className="bg-pink-100 rounded-xl flex justify-center items-center p-6 relative ">
 
-          <img src={Lady} className=" w-[350px] md:w-[400px] " />
+        {/* RIGHT */}
+        <div className="bg-pink-100 rounded-xl flex justify-center items-center p-6 relative">
 
-          <img src={New} className="hidden md:block absolute -left-16 top-16 w-[200px] animate-bounce" />
+          <img
+            ref={floatImgRef}
+            src={Lady}
+            className="w-[350px] md:w-[400px]"
+            alt="Lady"
+          />
 
-          <img src={Hero} className="hidden md:block absolute -right-10 top-5 w-24"/>
+          <img
+            src={New}
+            className="hidden md:block absolute -left-16 top-16 w-[200px]"
+            alt="New"
+          />
+
+          <img
+            src={Hero}
+            className="hidden md:block absolute -right-10 top-5 w-24"
+            alt="Hero"
+          />
         </div>
       </div>
+
+      {/* LOGOS */}
       <div className="w-full flex justify-center">
         <div className="border border-black rounded-xl px-22 py-19 flex flex-wrap justify-center items-center gap-10 max-w-9xl">
           <p className="text-gray-700 font-medium whitespace-nowrap">
@@ -108,7 +136,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* OTHER PAGES */}
+      {/* OTHER SECTIONS */}
       <About />
       <Blog />
       <Services />
@@ -116,3 +144,4 @@ export default function HeroSection() {
     </div>
   );
 }
+
