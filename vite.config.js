@@ -18,7 +18,7 @@ import react from '@vitejs/plugin-react'
       ,
        tailwindcss(),
     ],
-     base :'Shipra-s-Figma'
+     base :'/Uifry/'
   })
 
 
