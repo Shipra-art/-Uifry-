@@ -11,15 +11,14 @@ import react from '@vitejs/plugin-react'
     ],
   }) */}
   
+
   
-  export default defineConfig({
-    plugins: [react()
-     
-      ,
-       tailwindcss(),
-    ],
-     base :'/Uifry/'
-  })
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  base: '/Shipra-s-Figma/', // 👈 EXACT repo name
+})
+
 
 
 
